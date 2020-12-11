@@ -1,0 +1,3 @@
+com\myexer\util\SqlSessionUtil.class
+com\myexer\dao\StudentDao.class
+com\myexer\domain\Student.class

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--注意!!!!!!这里的namespace要的是 "." 不是反斜杠!!!!!!!!!!!!!!!!-->
+<mapper namespace="com.myexer.dao.StudentDao">
+    <select id="selectAllStudent" resultType="student">
+        select * from t_student
+    </select>
+
+    <select id="selectOneStudent" resultType="com.myexer.domain.Student">
+        select * from t_student
+        <where>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="age > 0">
+                and age &gt; #{age}
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectSudents" resultType="com.myexer.domain.Student">
+        select * from t_student where id in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--    指定properties文件的位置，从类路径根开始找文件-->
+    <properties resource="jdbc.properties"></properties>
+
+    <!--    setting：mtbatis全局行为-->
+    <settings>
+<!--        配置日志-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <typeAliases>
+        <package name="com.myexer.domain"/>
+    </typeAliases>
+
+
+    <!--    环境配置：数据库连接的信息-->
+    <environments default="mydev">
+        <!--        id：唯一值，自定义，表示环境名称-->
+        <environment id="mydev">
+            <!--       transactionManager：mybatis事务类型
+                        type：JDBC===表示使用jdbc中的Connection对象的commit，rollback做事务处理
+                  -->
+            <transactionManager type="JDBC"/>
+            <!--            dataSource表示数据源
+                            type：表示数据源的类型，pooled表示使用连接池
+              -->
+            <dataSource type="POOLED">
+
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.user}"/>
+                <property name="password" value="${jdbc.passwd}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--    sql mapper（sql映射文件）的位置-->
+    <mappers>
+        <!--        一个mapper标签指定一个文件的位置，从类的路径开始的路径信息(target\classes)
+                       注意这里是斜杠，不是反斜杠
+            -->
+        <mapper resource="com\myexer\dao\StudentDao.xml"/>
+
+
+        <!--        第二种方法:使用包名
+            name:xml文件所在的包名，这个包中所有的xml文件一次都加载给mybatis
+            使用要求：
+               1. mapper文件名称和接口名称需要一致，区分大小写
+               2. mapper文件和dao需要在统一目录下
+
+
+        <package name="com.myexer.dao"/>
+-->
+
+
+    </mappers>
+</configuration>
